@@ -7,7 +7,7 @@ class AVLTree
 private:
     struct Node_
     {
-        T data_;
+        std::unique_ptr<T> data_;
         uint32_t height_;
         Node_* left_;
         Node_* right_;
