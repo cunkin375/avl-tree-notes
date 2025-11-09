@@ -5,27 +5,27 @@ template<typename T>
 class AVLTree 
 {
 private:
-    struct Node_
+    typedef struct m_Node
     {
-        std::unique_ptr<T> data_;
-        uint32_t height_;
-        Node_* left_;
-        Node_* right_;
+        std::unique_ptr<T> data;
+        int32_t height;
+        m_Node* left;
+        m_Node* right;
 
-        Node_(T& incoming_data) : 
-            data_(incoming_data), 
-            height_(0),
-            left_(nullptr), right_(nullptr)
-        {
-        }
-    };
+        m_Node(T& incoming_data) 
+            : data(incoming_data)
+            , height(0)
+            , left(nullptr), right(nullptr)
+        {}
+
+    } m_Node;
 
 public:
     // TODO: Fix constructor
     AVLTree(T value);
     ~AVLTree();
 
-    T remove_value(std::unique_ptr<T> value);
+    void remove_value(std::unique_ptr<T> value);
 
     void check_tree() const;
     void insert();
@@ -33,17 +33,16 @@ public:
 private:
     // rebalance takes in a unique_ptr reference because it shuffles pointers within the AVL Tree
     // source: Herb Sutter "Back to the Basics! Essentials of Modern C++ Style"
-    std::unique_ptr<Node_> rebalance(std::unique_ptr<Node_>& root);
+    std::unique_ptr<m_Node> rebalance(std::unique_ptr<m_Node>& root);
 
-    Node_* find_delete_ptr(Node_* root);
-    Node_* max_left(Node_* root);
+    m_Node* find_delete_ptr(m_Node* root);
+    m_Node* find_max_left(m_Node* root);
+    m_Node* find_min_right(m_Node* root);
 
     void delete_node();
     void update_height();
+    void relabance();
 
-    bool is_leaf_node(Node_* root) const;
-    bool has_two_children(Node_* root) const;
-
-private:
-    std::unique_ptr<Node_> root_;
+    bool is_leaf_node(m_Node* root) const;
+    bool has_two_children(m_Node* root) const;
 };
