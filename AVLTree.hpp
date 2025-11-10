@@ -1,5 +1,5 @@
+#pragma once
 #include <memory>
-
 
 template<typename T>
 class AVLTree 
@@ -7,10 +7,10 @@ class AVLTree
 private:
     typedef struct m_Node
     {
-        std::unique_ptr<T> data;
-        int32_t height;
-        m_Node* left;
-        m_Node* right;
+        int32_t height = 0;
+        std::unique_ptr<T> data = nullptr;
+        m_Node* left = nullptr;
+        m_Node* right = nullptr;
 
         m_Node(T& incoming_data) 
             : data(incoming_data)
@@ -46,3 +46,6 @@ private:
     bool is_leaf_node(m_Node* root) const;
     bool has_two_children(m_Node* root) const;
 };
+
+#include "AVLTree.tpp"
+
