@@ -214,7 +214,9 @@ node* delete_node(node* root, node* delete_ptr)
 {
     // extra measure
     if (root == NULL) return NULL;
+
     int32_t delete_value = delete_ptr->data;
+
     if (root == delete_ptr)
     {
         if (is_leaf_node(root))
@@ -245,12 +247,15 @@ node* delete_node(node* root, node* delete_ptr)
             return return_value;
         }
     }
+
     // go left
     if (delete_value < root->data)
         root->left = delete_node(root->left, delete_ptr);
     else // go right
         root->right = delete_node(root->right, delete_ptr);
+
     update_height(root);
+
     return root;
 } // end delete_node
 
